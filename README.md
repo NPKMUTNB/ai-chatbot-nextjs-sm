@@ -11,6 +11,12 @@ Before running the project, install the required packages:
 npm install @langchain/openai @langchain/core @ai-sdk/langchain ai
 ```
 
+### Package Descriptions
+- **@ai-sdk/langchain**: เชื่อมต่อ LangChain กับ AI SDK สำหรับการใช้งานร่วมกับ UI message stream
+- **@langchain/core**: Core library สำหรับการสร้างและจัดการ prompt, chain, และ message ใน LangChain
+- **@langchain/openai**: ใช้สำหรับเชื่อมต่อและเรียกใช้งานโมเดล OpenAI ผ่าน LangChain
+- **ai**: ฟังก์ชันและ type สำหรับการจัดการ message, stream และ response ฝั่ง UI/Frontend
+
 ---
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
