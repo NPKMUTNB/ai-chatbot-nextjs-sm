@@ -55,3 +55,81 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Installation
+
+Before running the project, install the required packages:
+
+```bash
+npm install @langchain/openai @langchain/core @ai-sdk/langchain ai
+```
+
+### Package Descriptions
+
+- **@ai-sdk/langchain**: ใช้สำหรับเชื่อมต่อ LangChain กับ AI SDK เพื่อจัดการ message stream ระหว่าง backend และ frontend
+- **@langchain/core**: ไลบรารีหลักสำหรับการสร้างและจัดการ prompt, chain, และ message ใน LangChain
+- **@langchain/openai**: สำหรับเชื่อมต่อและเรียกใช้งานโมเดล OpenAI ผ่าน LangChain
+- **ai**: รวมฟังก์ชันและ type สำหรับการจัดการ message, stream และ response ฝั่ง UI/Frontend เช่น createUIMessageStreamResponse, UIMessage, convertToModelMessages
+
+### ตัวอย่างการสร้าง instance ของ ChatOpenAI (OpenRouter)
+
+```typescript
+// สร้าง instance ของ ChatOpenAI (OpenRouter)
+const model = new ChatOpenAI({
+    apiKey: process.env.OPENROUTER_API_KEY,
+    model: process.env.OPENAI_MODEL_NAME, // ชื่อโมเดลที่ต้องการใช้
+    cache: false, // ปิดใช้งาน cache
+    temperature: 0.7, // ความสร้างสรรค์ของคำตอบ มีระดับ 0-1 // 0 คือ ตอบตรง ๆ // 1 คือ ตอบแบบสร้างสรรค์
+    maxTokens: 1000, //จำนวนคำตอบสูงสุดที่ต้องการ 1000 token
+    configuration: {
+        baseURL: process.env.OPENROUTER_API_BASE,
+    },
+    // ถ้า provider ไม่รองรับ stream usage ให้ปิดได้ (บาง proxy ต้องการ)
+    streamUsage: false,
+})
+```
+
+- `apiKey`: ใช้สำหรับระบุ API Key ของ OpenRouter
+- `model`: ระบุชื่อโมเดลที่ต้องการใช้งาน (เช่น gpt-4o, gpt-3.5-turbo ฯลฯ)
+- `cache`: ปิดหรือเปิดการ cache คำตอบ
+- `temperature`: ระดับความสร้างสรรค์ของคำตอบ (0 = ตอบตรง, 1 = สร้างสรรค์)
+- `maxTokens`: จำนวน token สูงสุดที่ต้องการ
+- `configuration.baseURL`: ระบุ base URL สำหรับ OpenRouter API
+- `streamUsage`: เปิด/ปิดการใช้งาน stream (บาง provider/proxy อาจไม่รองรับ)
+
+### ตัวอย่างการสร้าง instance ของ ChatOpenAI (OpenAI)
+
+```typescript
+// สร้าง instance ของ ChatOpenAI
+const model = new ChatOpenAI({
+  model: "gpt-4o-mini",
+  temperature: 0, // ความสร้างสรรค์ของคำตอบ มีระดับ 0-1 // 0 คือ ตอบตรง ๆ // 1 คือ ตอบแบบสร้างสรรค์
+  maxTokens: 300, // จำนวนคำตอบสูงสุดที่ต้องการ 300 token
+})
+```
+
+- `model`: ระบุชื่อโมเดลที่ต้องการใช้งาน (เช่น gpt-4o-mini)
+- `temperature`: ระดับความสร้างสรรค์ของคำตอบ (0 = ตอบตรง, 1 = สร้างสรรค์)
+- `maxTokens`: จำนวน token สูงสุดที่ต้องการ
+
+### ตัวอย่างการสร้าง instance ของ ChatOpenAI สำหรับ Ollama (Local)
+
+```typescript
+const model = new ChatOpenAI({
+  model: process.env.OPENAI_MODEL_NAME || "qwen2:latest", // ชื่อโมเดลที่ต้องการใช้
+  temperature: 0.7,
+  maxTokens: 1000,
+  configuration: {
+    baseURL: process.env.OLLAMA_API_BASE || "http://localhost:11434/v1", // URL ของ Ollama API
+  },
+  apiKey: "ollama", // Ollama ไม่ต้องการ API key จริง แต่ต้องใส่ค่าอะไรก็ได้
+})
+```
+
+- `model`: ระบุชื่อโมเดลที่ต้องการใช้งาน (เช่น qwen2:latest)
+- `temperature`: ระดับความสร้างสรรค์ของคำตอบ (0 = ตอบตรง, 1 = สร้างสรรค์)
+- `maxTokens`: จำนวน token สูงสุดที่ต้องการ
+- `configuration.baseURL`: URL สำหรับเชื่อมต่อกับ Ollama API (เช่น http://localhost:11434/v1)
+- `apiKey`: Ollama ไม่ต้องการ API key จริง แต่ต้องใส่ค่าอะไรก็ได้
+
+
