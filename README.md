@@ -120,7 +120,7 @@ const model = new ChatOpenAI({
   temperature: 0.7,
   maxTokens: 1000,
   configuration: {
-    baseURL: process.env.OLLAMA_API_BASE || "http://localhost:11434/v1", // URL ของ Ollama API
+    baseURL: process.env.OLLAMA_API_BASE || "http://localhost:11434/v1", // URL ของ Olloma API
   },
   apiKey: "ollama", // Ollama ไม่ต้องการ API key จริง แต่ต้องใส่ค่าอะไรก็ได้
 })
@@ -131,5 +131,32 @@ const model = new ChatOpenAI({
 - `maxTokens`: จำนวน token สูงสุดที่ต้องการ
 - `configuration.baseURL`: URL สำหรับเชื่อมต่อกับ Ollama API (เช่น http://localhost:11434/v1)
 - `apiKey`: Ollama ไม่ต้องการ API key จริง แต่ต้องใส่ค่าอะไรก็ได้
+
+## UI Components Setup (shadcn/ui)
+
+To initialize shadcn/ui components, run:
+
+```sh
+npx shadcn@latest init
+```
+
+This will set up shadcn/ui in your Next.js project for easy use of modern UI components.
+
+To add a UI component (e.g. Button) from shadcn/ui, run:
+
+```sh
+npx shadcn@latest add button
+```
+
+This will generate a reusable Button component in `src/components/ui/button.tsx`.
+
+To add Supabase password-based authentication UI, run:
+
+```sh
+npx shadcn@latest add https://supabase.com/ui/r/password-based-auth-nextjs.json
+```
+
+For documentation and usage, see:
+[Supabase UI Docs: Password-based Auth (Next.js)](https://supabase.com/ui/docs/nextjs/password-based-auth)
 
 
