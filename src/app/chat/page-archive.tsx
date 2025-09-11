@@ -30,8 +30,8 @@ function ChatPage() {
                 <div> AI กำลังคิด...</div>
             }
         {/* แสดง Messages */}
-        {messages.map(m => (
-           <div className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+        {messages.map((m, i) => (
+           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div>
                     {m.parts.map((part, index) => 
                         part.type === 'text' ? (
