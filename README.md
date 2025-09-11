@@ -74,23 +74,22 @@ npm install @langchain/openai @langchain/core @ai-sdk/langchain ai
 ### ตัวอย่างการสร้าง instance ของ ChatOpenAI (OpenRouter)
 
 ```typescript
-// สร้าง instance ของ ChatOpenAI (OpenRouter)
+// OpenRouter ====================================================================================
 const model = new ChatOpenAI({
     apiKey: process.env.OPENROUTER_API_KEY,
-    model: process.env.OPENAI_MODEL_NAME, // ชื่อโมเดลที่ต้องการใช้
+    model: process.env.OPENROUTER_MODEL_NAME || "qwen/qwen3-235b-a22b-2507", // ชื่อโมเดลที่ต้องการใช้
     cache: false, // ปิดใช้งาน cache
     temperature: 0.7, // ความสร้างสรรค์ของคำตอบ มีระดับ 0-1 // 0 คือ ตอบตรง ๆ // 1 คือ ตอบแบบสร้างสรรค์
-    maxTokens: 1000, //จำนวนคำตอบสูงสุดที่ต้องการ 1000 token
+    maxTokens: 1000, // จำนวนคำตอบสูงสุดที่ต้องการ 1000 token
     configuration: {
         baseURL: process.env.OPENROUTER_API_BASE,
     },
-    // ถ้า provider ไม่รองรับ stream usage ให้ปิดได้ (บาง proxy ต้องการ)
-    streamUsage: false,
+    streamUsage: false, // ถ้าใช้ stream ต้องตั้งค่าเป็น true
 })
 ```
 
 - `apiKey`: ใช้สำหรับระบุ API Key ของ OpenRouter
-- `model`: ระบุชื่อโมเดลที่ต้องการใช้งาน (เช่น gpt-4o, gpt-3.5-turbo ฯลฯ)
+- `model`: ระบุชื่อโมเดลที่ต้องการใช้งาน (เช่น qwen/qwen3-235b-a22b-2507)
 - `cache`: ปิดหรือเปิดการ cache คำตอบ
 - `temperature`: ระดับความสร้างสรรค์ของคำตอบ (0 = ตอบตรง, 1 = สร้างสรรค์)
 - `maxTokens`: จำนวน token สูงสุดที่ต้องการ
