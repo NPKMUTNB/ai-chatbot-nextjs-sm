@@ -70,6 +70,7 @@ npm install @langchain/openai @langchain/core @ai-sdk/langchain ai
 - **@langchain/core**: ไลบรารีหลักสำหรับการสร้างและจัดการ prompt, chain, และ message ใน LangChain
 - **@langchain/openai**: สำหรับเชื่อมต่อและเรียกใช้งานโมเดล OpenAI ผ่าน LangChain
 - **ai**: รวมฟังก์ชันและ type สำหรับการจัดการ message, stream และ response ฝั่ง UI/Frontend เช่น createUIMessageStreamResponse, UIMessage, convertToModelMessages
+- **@ai-sdk/react**: ใช้สำหรับสร้างและจัดการแชตใน React component เช่น useChat hook เพื่อเชื่อมต่อกับ backend API
 
 ### ตัวอย่างการสร้าง instance ของ ChatOpenAI (OpenRouter)
 
