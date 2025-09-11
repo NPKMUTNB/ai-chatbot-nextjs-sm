@@ -1,13 +1,17 @@
 // create page.tsx react
 'use client';
 
-import React from 'react';
+import { useState } from 'react';
+
 
 function ChatPage() {
+    const [input, setInput] = useState("")
+    console.log("Input:",input);
     return (
-        <div>
-        <h1>Chat Page</h1>
-        {/* Add your chat UI components here */}
+        <div className='p-4 bg-amber-600'>
+            <form action="">
+                <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
+            </form>
         </div>
     );
 }
