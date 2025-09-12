@@ -23,6 +23,8 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const [displayName, setDisplayName] = useState('')
+  const [phone, setPhone] = useState('')
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -40,9 +42,13 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/protected`,
-        },
+         options: {
+          emailRedirectTo: `${window.location.origin}/chat`,
+          data: {
+            display_name: displayName,
+            phone: phone,
+        }
+    },
       })
       if (error) throw error
       router.push('/auth/sign-up-success')
@@ -74,6 +80,29 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+                            <div className="grid gap-2">
+    <Label htmlFor="displayName">Display Name</Label>
+              <Input
+                  id="displayName"
+                  type="text"
+                  placeholder="Display Name"
+                  required
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+              />
+              </div>
+
+              <div className="grid gap-2">
+              <Label htmlFor="phone">Phone</Label>
+              <Input
+                  id="phone"
+                  type="text"
+                  placeholder="Phone"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+              />
+          </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
@@ -98,6 +127,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
               </div>
+
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? 'Creating an account...' : 'Sign up'}
